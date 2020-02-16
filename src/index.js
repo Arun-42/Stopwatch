@@ -22,6 +22,7 @@ class Top extends React.Component {
     const timeArr = [this.getH(),this.getM(),this.getS()];
     let log_state = this.state.log;
     if (log_state.indexOf(timeArr)>0) {return;}
+    if (!this.state.started){return}
     log_state.push(timeArr); 
     this.setState({
       ...this.state,
@@ -79,11 +80,10 @@ class Top extends React.Component {
       h: 0,
       m: 0,
       s: 0,
-      started: false,
       log: [],
-    });
-    this.clearIntervals.bind(this)();
+    }, () => {this.clearIntervals();});
   }
+  
   getS() {
     return this.state.s < 10 ? "0" + String(this.state.s) : String(this.state.s);
   }
@@ -97,21 +97,28 @@ class Top extends React.Component {
     let elem = [];
     this.state.log.forEach(element => {
       elem.push(
-        <h4>{element[0]}:{element[1]}:{element[2]}</h4>
+        <h3 key={this.state.log.indexOf(element)}>{element[0]}:{element[1]}:{element[2]}</h3>
       )
     });
     return elem;
   }
+  start_stop(){
+    return this.state.started ? "Stop": "Start";
+  }
+  start_clear(){
+    if (this.state.started){
+      this.clearIntervals.apply(this);
+    } else {
+      this.start.apply(this);
+    }
+  }
   render() {
     let logs = this.makeLogs.apply(this);
     return (
-      <div>
-        <h1>Stopwatch <span style={{fontSize:0.4+'em'}}>kindof</span></h1>
+      <div className="main">
+        <h2>Stopwatch {/* <span style={{fontSize:0.4+'em'}}>kindof</span> */}</h2>
         <div className="buttons">
-          <button onClick={this.start.bind(this)}>
-            Start
-          </button>
-          <button onClick={this.clearIntervals.bind(this)}>Stop</button>
+          <button onClick={this.start_clear.bind(this)}>{this.start_stop.apply(this)}</button>
           <button onClick={this.resetAll.bind(this)}>Reset</button>
           <button className="logButton"
             onClick={this.log.bind(this)}
