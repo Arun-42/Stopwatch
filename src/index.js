@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
+
 class Top extends React.Component {
   constructor(props) {
     super(props);
@@ -10,16 +11,33 @@ class Top extends React.Component {
     this.sets = null;
     this.setms = null;
     this.state = {
+      started: false,
       h: 0,
       m: 0,
-      s: 0
+      s: 0,
+      log: [],
     };
   }
+  log(){
+    const timeArr = [this.getH(),this.getM(),this.getS()];
+    let log_state = this.state.log;
+    if (log_state.indexOf(timeArr)>0) {return;}
+    log_state.push(timeArr); 
+    this.setState({
+      ...this.state,
+      log : log_state,
+    })
+  }
   start() {
+    if (this.state.started) {return}
+    this.setState({
+      ...this.state,
+      started: true,
+    })    
     this.seth = setInterval(() => {
       this.setState({
         ...this.state,
-        h: 1 + this.state.h
+        h: 1 + this.state.h,
       });
     }, 1000 * 60 * 60);
     this.setm = setInterval(() => {
@@ -48,6 +66,10 @@ class Top extends React.Component {
     }, 1000);
   }
   clearIntervals() {
+    this.setState({
+      ...this.state,
+      started: false,
+    })
     clearInterval(this.seth);
     clearInterval(this.setm);
     clearInterval(this.sets);
@@ -56,7 +78,9 @@ class Top extends React.Component {
     this.setState({
       h: 0,
       m: 0,
-      s: 0
+      s: 0,
+      started: false,
+      log: [],
     });
     this.clearIntervals.bind(this)();
   }
@@ -69,19 +93,36 @@ class Top extends React.Component {
   getH() {
     return this.state.h < 10 ? "0" + String(this.state.h) : String(this.state.h);
   }
+  makeLogs(){
+    let elem = [];
+    this.state.log.forEach(element => {
+      elem.push(
+        <h4>{element[0]}:{element[1]}:{element[2]}</h4>
+      )
+    });
+    return elem;
+  }
   render() {
+    let logs = this.makeLogs.apply(this);
     return (
       <div>
         <h1>Stopwatch <span style={{fontSize:0.4+'em'}}>kindof</span></h1>
         <div className="buttons">
-          <button onClick={this.start.bind(this)}>Start</button>
+          <button onClick={this.start.bind(this)}>
+            Start
+          </button>
           <button onClick={this.clearIntervals.bind(this)}>Stop</button>
           <button onClick={this.resetAll.bind(this)}>Reset</button>
-        </div>
-        <h3>
+          <button className="logButton"
+            onClick={this.log.bind(this)}
+            >Log</button>
+        </div><br></br>
+        <h3>Hours : Minutes : Seconds</h3>
+        <h3 className="clock">
           {this.getH.bind(this)()}:{this.getM.bind(this)()}:
           {this.getS.bind(this)()}
         </h3>
+        <div className="logs">{logs}</div>
       </div>
     );
   }

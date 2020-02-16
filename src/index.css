@@ -1,15 +1,57 @@
-h1{
-  text-align: center;
+html{
+  box-sizing: border-box;
+  background-color: rgb(199, 198, 235);
 }
 
+h1{
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 400;
+}
+h3.clock{
+  font-weight: 500;
+}
+.logs{
+
+}
 .buttons{
   display: flex;
   justify-content: center;
 }
 
+h4{
+  text-align: center;
+  font-weight: 400;
+}
+
+button{
+  margin-left: 1rem;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 5em;
+  height: 2em;
+  border-radius: 9px;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  background-color: rgba(255, 213, 236, 0.849);
+  color: rgb(46, 46, 46);
+}
+button:hover{
+  background-color: rgba(248, 151, 204, 0.849) ;
+  color: white;
+}
+button:focus{
+  background-color: rgba(255, 122, 195, 0.856);
+}
+button:focus:hover{
+  background-color: rgba(248, 151, 204, 0.849) ;
+}
 h3{
   text-align: center;
+  font-weight: 400;
 }
+
 
 p{
   background-color: rgba(121, 168, 87, 0.096);
