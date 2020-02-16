@@ -125,10 +125,12 @@ class Top extends React.Component {
             >Log</button>
         </div><br></br>
         <h3>Hours : Minutes : Seconds</h3>
-        <h3 className="clock">
-          {this.getH.bind(this)()}:{this.getM.bind(this)()}:
-          {this.getS.bind(this)()}
-        </h3>
+        <div className="clock">
+          <h3>
+            {this.getH.bind(this)()}:{this.getM.bind(this)()}:
+            {this.getS.bind(this)()}
+          </h3>
+        </div>
         <div className="logs">{logs}</div>
       </div>
     );

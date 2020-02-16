@@ -12,7 +12,9 @@ body{
 #root{
 
 }
-
+.clock{
+  width: 14em;
+}
 
 h2{
   text-align: center;
@@ -20,7 +22,7 @@ h2{
   font-weight: 300;
   font-size: 3em;
 }
-h3.clock{
+h3{
   font-weight: 500;
 }
 .main{
@@ -65,15 +67,9 @@ button{
 button:hover{
   background-color: rgba(248, 151, 204, 0.849) ;
   color: white;
+  border-bottom: 1px;
+  border-color: black;
 }
-button:focus:hover{
-  background-color: rgba(248, 151, 204, 0.849) ;
-  color: white;
-}
-}
-
-button:focus{
-  background-color: rgba(249, 217, 250, 0.849);
 }
 button:active{
   background-color: rgba(252, 180, 255, 0.849);
