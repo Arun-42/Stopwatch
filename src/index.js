@@ -78,6 +78,16 @@ class Top extends React.Component {
       this.start.apply(this);
     }
   }
+  start_clearlog(){
+    if (this.state.started){
+      this.log.apply(this);
+    } else {
+      this.resetAll.apply(this);
+    }
+  }
+  start_stoplog(){
+    return this.state.started ? "Log": "Reset";
+  }
   render() {
     let logs = this.makeLogs.apply(this);
     return (
@@ -85,10 +95,8 @@ class Top extends React.Component {
         <h2>Stopwatch {/* <span style={{fontSize:0.4+'em'}}>kindof</span> */}</h2>
         <div className="buttons">
           <button onClick={this.start_clear.bind(this)}>{this.start_stop.apply(this)}</button>
-          <button onClick={this.resetAll.bind(this)}>Reset</button>
-          <button className="logButton"
-            onClick={this.log.bind(this)}
-            >Log</button>
+          <button onClick={this.start_clearlog.bind(this)}>{this.start_stoplog.apply(this)}</button>
+          
         </div><br></br>
         <h3>Hours : Minutes : Seconds</h3>
         <div className="clock">

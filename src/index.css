@@ -53,27 +53,27 @@ button{
   margin-left: 1rem;
   padding-left: 1em;
   padding-right: 1em;
-  width: 5em;
-  height: 2.5em;
+  width: 7em;
+    height: 3em;
   border-radius: 5px;
   outline: none;
   box-shadow: none;
   border: none;
   transition: all 0.2s ease;
-  background-color: rgba(255, 213, 236, 0.849);
-  color: rgb(46, 46, 46);
+  background-color: rgba(255, 79, 79, 0.849);
+  color: rgb(255, 255, 255);
 }
 
 @media (pointer:fine){
 button:hover{
-  background-color: rgba(248, 151, 204, 0.849) ;
+  background-color: rgba(255, 94, 182, 0.849) ;
   color: white;
   border-bottom: 1px;
   border-color: black;
 }
 }
 button:active{
-  background-color: rgba(252, 180, 255, 0.849);
+  background-color: rgba(250, 107, 255, 0.849);
 }
 h3{
   text-align: center;
