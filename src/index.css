@@ -1,11 +1,17 @@
 html{
   min-height:100%;
   box-sizing: border-box;
+
   background-color: rgb(199, 198, 235);
   background: linear-gradient(to bottom,
   #c7c6eb,rgb(255, 255, 255)) 
   no-repeat fixed;
 }
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body{
 }
 
@@ -14,7 +20,12 @@ body{
 }
 .clock{
   width: 14em;
-  border-radius: 15px;
+  border-radius: 10px;
+  margin-top: 1em;
+  display: flex;
+  height: 3em;
+  justify-content: center;
+  align-items: center;
 }
 
 h2{
@@ -31,31 +42,54 @@ h3{
   flex-direction: column;
   align-items: center;
 }
-.logs{
+.laps{
+  margin-top: 1em;
   color: rgb(80, 80, 80);
-  background-color: rgba(182, 181, 216, 0.075);
+
   width: 18em;
 
 }
 .buttons{
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 2%;
   
+}
+
+.head{
+  background-color: rgb(218, 218, 245);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;;
+  padding: 3em 0;
+  padding-top:3em;
+  padding-bottom: 1.5em;
+  position:sticky;
+  top:0;
 }
 
 h4{
   text-align: center;
   font-weight: 400;
 }
-
+.buttons{
+  padding-top: 2em;
+  position:sticky;
+  position: -webkit-sticky;
+}
+button:first-of-type{
+  margin-right: 0.5em;
+}
+button.second{
+  margin-left: 0.5em;
+}
 button{
-  margin-left: 1rem;
   padding-left: 1em;
   padding-right: 1em;
   width: 7em;
-    height: 3em;
+  height: 3em;
   border-radius: 5px;
   outline: none;
   box-shadow: none;
@@ -64,6 +98,7 @@ button{
   background-color: rgba(255, 79, 79, 0.849);
   color: rgb(255, 255, 255);
 }
+
 
 @media (pointer:fine){
 button:hover{
@@ -79,6 +114,7 @@ button:active{
 h3{
   text-align: center;
   font-weight: 400;
+  margin:1em;
 }
 
 p{

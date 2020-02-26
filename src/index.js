@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-require("./index.css");
-
+import "./index.css"
 // this is super clumpsy on second thought
 
 function start_stop(started) {
   return started ? "Stop" : "Start";
 }
 
-function start_stoplog(started) {
+function start_stoplap(started) {
   return started ? "Lap" : "Reset";
+}
+
+function msToTime(s) {
+  // Pad to 2 or 3 digits, default is 2
+  return new Date(s).toISOString().slice(11, -1);
 }
 
 function Buttons(props) {
@@ -17,7 +21,9 @@ function Buttons(props) {
   return (
     <div className="buttons">
       <button onClick={props.start_clear}>{start_stop(started)}</button>
-      <button onClick={props.start_clearlog}>{start_stoplog(started)}</button>
+      <button className="second" onClick={props.start_clearlap}>
+        {start_stoplap(started)}
+      </button>
     </div>
   );
 }
@@ -27,28 +33,23 @@ class Top extends React.Component {
     super(props);
     this.sets = null;
     this.start_clear = this.start_clear.bind(this);
-    this.start_clearlog = this.start_clearlog.bind(this);
+    this.start_clearlap = this.start_clearlap.bind(this);
     this.state = {
       started: false,
       time: 0,
-      log: []
+      lap: []
     };
   }
 
-  msToTime(s) {
-    // Pad to 2 or 3 digits, default is 2
-    return new Date(s).toISOString().slice(11, -1);
-  }
-
-  log() {
+  lap() {
     if (!this.state.started) {
       return;
     }
     const timeArr = this.state.time;
-    let log_state = this.state.log;
-    log_state.push(timeArr);
+    let lap_state = this.state.lap;
+    lap_state.push(timeArr);
     this.setState({
-      log: log_state
+      lap: lap_state
     });
   }
 
@@ -76,7 +77,7 @@ class Top extends React.Component {
   resetAll() {
     this.setState(
       {
-        log: [],
+        lap: [],
         time: 0
       },
       () => {
@@ -84,13 +85,13 @@ class Top extends React.Component {
       }
     );
   }
-  makeLogs() {
-    let elem = this.state.log.map(element => (
-      <h3 key={this.state.log.indexOf(element)}>{this.msToTime(element)}</h3>
+  makelaps() {
+    let elem = this.state.lap.map(element => (
+      <h3 key={this.state.lap.indexOf(element)}>{msToTime(element)}</h3>
     ));
-    /* this.state.log.forEach(element => {
+    /* this.state.lap.forEach(element => {
       elem.push(
-        <h3 key={this.state.log.indexOf(element)}>{this.msToTime(element)}</h3>
+        <h3 key={this.state.lap.indexOf(element)}>{this.msToTime(element)}</h3>
       );
     }); */
     return elem;
@@ -102,42 +103,59 @@ class Top extends React.Component {
       this.start.apply(this);
     }
   }
-  start_clearlog() {
+  start_clearlap() {
     if (this.state.started) {
-      this.log.apply(this);
+      this.lap.apply(this);
     } else {
       this.resetAll.apply(this);
     }
   }
   render() {
-    let logs = this.makeLogs.apply(this);
+    const laps = this.makelaps.apply(this);
     //const started = this.state.started;
-    const clockstyle = {
-      background: this.state.started
-        ? "rgba(68, 64, 194, 0.2)"
-        : this.state.time
-        ? "rgba(226,44,100,0.4)"
-        : "none"
-    };
+
     return (
       <div className="main">
-        <h2>
-          Stopwatch {/* <span style={{fontSize:0.4+'em'}}>kindof</span> */}
-        </h2>
-        <Buttons
-          started={this.state.started}
-          start_clear={this.start_clear}
-          start_clearlog={this.start_clearlog}
-        />
-        <br></br>
-        {/* <h3>Hours : Minutes : Seconds</h3> */}
-        <div className="clock" style={clockstyle}>
-          <h3>{this.msToTime(this.state.time)}</h3>
+        <div className="head">
+          <Heading />
+          <Buttons
+            started={this.state.started}
+            start_clear={this.start_clear}
+            start_clearlap={this.start_clearlap}
+          />
+          <Clock 
+            time={this.state.time} 
+            started={this.state.started} 
+          />
         </div>
-        <div className="logs">{logs.reverse()}</div>
+        <Laps laps={laps} />
       </div>
     );
   }
+}
+
+function Laps(props) {
+  return <div className="laps">{props.laps.reverse()}</div>;
+}
+
+function Clock(props) {
+  const clockstyle = {
+    background: props.started
+      ? "rgba(68, 64, 194, 0.2)"
+      : props.time
+      ? "rgba(226,44,100,0.4)"
+      : "none"
+  };
+
+  return (
+    <div className="clock" style={clockstyle}>
+      <h3>{msToTime(props.time)}</h3>
+    </div>
+  );
+}
+
+function Heading(props) {
+  return <h2>Stopwatch</h2>;
 }
 
 ReactDOM.render(<Top />, document.getElementById("root"));
