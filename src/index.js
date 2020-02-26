@@ -1,32 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css"
-// this is super clumpsy on second thought
+import {Heading} from "./components/heading"
+import  {Laps} from "./components/laps"
+import {Clock, msToTime} from "./components/clock"
+import {Buttons} from "./components/buttons"
 
-function start_stop(started) {
-  return started ? "Stop" : "Start";
-}
-
-function start_stoplap(started) {
-  return started ? "Lap" : "Reset";
-}
-
-function msToTime(s) {
-  // Pad to 2 or 3 digits, default is 2
-  return new Date(s).toISOString().slice(11, -1);
-}
-
-function Buttons(props) {
-  const started = props.started;
-  return (
-    <div className="buttons">
-      <button onClick={props.start_clear}>{start_stop(started)}</button>
-      <button className="second" onClick={props.start_clearlap}>
-        {start_stoplap(started)}
-      </button>
-    </div>
-  );
-}
 
 class Top extends React.Component {
   constructor(props) {
@@ -134,28 +113,6 @@ class Top extends React.Component {
   }
 }
 
-function Laps(props) {
-  return <div className="laps">{props.laps.reverse()}</div>;
-}
 
-function Clock(props) {
-  const clockstyle = {
-    background: props.started
-      ? "rgba(68, 64, 194, 0.2)"
-      : props.time
-      ? "rgba(226,44,100,0.4)"
-      : "none"
-  };
-
-  return (
-    <div className="clock" style={clockstyle}>
-      <h3>{msToTime(props.time)}</h3>
-    </div>
-  );
-}
-
-function Heading(props) {
-  return <h2>Stopwatch</h2>;
-}
 
 ReactDOM.render(<Top />, document.getElementById("root"));
