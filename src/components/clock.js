@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 function msToTime(s) {
   // Pad to 2 or 3 digits, default is 2
@@ -21,4 +21,4 @@ function Clock(props) {
   );
 }
 
-export {Clock, msToTime}
+export { Clock, msToTime };

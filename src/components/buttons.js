@@ -1,5 +1,4 @@
-import React from "react"
-
+import React from "react";
 
 function start_stop(started) {
   return started ? "Stop" : "Start";
@@ -8,7 +7,6 @@ function start_stop(started) {
 function start_stoplap(started) {
   return started ? "Lap" : "Reset";
 }
-
 
 function Buttons(props) {
   const started = props.started;
@@ -22,4 +20,4 @@ function Buttons(props) {
   );
 }
 
-export {Buttons}
+export { Buttons };
