@@ -8,83 +8,78 @@ import { Buttons } from "./components/buttons";
 
 let interval = null;
 
-function start(started, setStarted, time, setTime) {
-  if (started) {
+function start(isStarted, setIsStarted, timeElapsed, setTime) {
+  if (isStarted) {
     return;
   }
-  setStarted(true);
-  let current = time;
-  let start = new Date() - current;
+  setIsStarted(true);
+  let current = timeElapsed;
+  let pseudoStart = new Date() - current;
   interval = setInterval(() => {
-    setTime(new Date() - start);
+    setTime(new Date() - pseudoStart);
   }, 1);
 }
 
-function makelaps(lap) {
-  let elem = lap.map(element => (
-    <h3 key={lap.indexOf(element)}>{msToTime(element)}</h3>
+function createLapsComponent(laps) {
+  let lapsJSX = laps.map(lap => (
+    <h3 key={laps.indexOf(lap)}>{msToTime(lap)}</h3>
   ));
-  return elem;
+  return lapsJSX;
 }
 
-function lapfunc(started, setLap, time, lap) {
-  if (!started) {
+function doLap(isStarted, setLaps, timeElapsed, laps) {
+  if (!isStarted) {
     return;
   }
-  const timeArr = time;
-  let lap_state = lap;
-  lap_state.push(timeArr);
-  setLap(lap_state);
+  const timeArr = timeElapsed;
+  let laps_state = laps;
+  laps_state.push(timeArr);
+  setLaps(laps_state);
 }
 
-function resetAll(setTime, setLap) {
-  setTime(0);
-  setLap([]);
+function resetAll(setTimeElapsed, setLaps) {
+  setTimeElapsed(0);
+  setLaps([]);
 }
 
 function Top() {
-  const [started, setStarted] = useState(false);
-  const [time, setTime] = useState(0);
-  const [lap, setLap] = useState([]);
-  const doStart = () => start(started, setStarted, time, setTime);
-  const doLapfunc = () => lapfunc(started, setLap, time, lap);
-  const doResetAll = () => resetAll(setTime, setLap);
+  const [isStarted, setIsStarted] = useState(false);
+  const [timeElapsed, setTimeElapsed] = useState(0);
+  const [laps, setLaps] = useState([]);
+  const doStart = () => start(isStarted, setIsStarted, timeElapsed, setTimeElapsed);
+  const doLapCopy = () => doLap(isStarted, setLaps, timeElapsed, laps);
+  const doResetAll = () => resetAll(setTimeElapsed, setLaps);
   
-  useEffect(() => {
-    if (!started) {
-      clearInterval(interval);
-    }
-  }, [started]);
 
-  function start_clear() {
-    if (started) {
-      setStarted(false);
+  function toggleStart() {
+    if (isStarted) {
+      setIsStarted(false);
+      clearInterval(interval)
     } else {
       doStart();
     }
   }
 
-  function start_clearlap() {
-    if (started) {
-      doLapfunc();
+  function doLapOrReset() {
+    if (isStarted) {
+      doLapCopy();
     } else {
       doResetAll();
     }
   }
-
-  const laps = makelaps(lap);
+  const lapsComponent = createLapsComponent(laps);
   return (
     <div className="main">
       <div className="head">
         <Heading />
         <Buttons
-          started={started}
-          start_clear={start_clear}
-          start_clearlap={start_clearlap}
+          isStarted={isStarted}
+          toggleStart={toggleStart}
+          doLapOrReset={doLapOrReset}
         />
-        <Clock time={time} started={started} />
+        <Clock timeElapsed={timeElapsed} isStarted={isStarted} />
       </div>
-      <Laps laps={laps} />
+      <Laps laps={lapsComponent} />
     </div>
   );
 }

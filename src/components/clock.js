@@ -5,18 +5,18 @@ function msToTime(s) {
   return new Date(s).toISOString().slice(11, -1);
 }
 
-function Clock(props) {
+function Clock({timeElapsed, isStarted}) {
   const clockstyle = {
-    background: props.started
+    background: isStarted
       ? "rgba(68, 64, 194, 0.2)"
-      : props.time
+      : timeElapsed
       ? "rgba(226,44,100,0.4)"
       : "none"
   };
 
   return (
     <div className="clock" style={clockstyle}>
-      <h3>{msToTime(props.time)}</h3>
+      <h3>{msToTime(timeElapsed)}</h3>
     </div>
   );
 }

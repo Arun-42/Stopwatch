@@ -1,7 +1,7 @@
 import React from "react";
 
-function Laps(props) {
-  return <div className="laps">{props.laps.reverse()}</div>;
+function Laps({laps}) {
+  return <div className="laps">{laps.reverse()}</div>;
 }
 
 export { Laps };
