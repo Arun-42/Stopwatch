@@ -8,10 +8,15 @@ function msToTime(s) {
 function Clock({timeElapsed, isStarted}) {
   const clockstyle = {
     background: isStarted
-      ? "rgba(68, 64, 194, 0.2)"
+      ? "white"
       : timeElapsed
-      ? "rgba(226,44,100,0.4)"
-      : "none"
+      ? "black"
+      : "none",
+    color: isStarted
+    ? "black"
+    : timeElapsed
+    ? "white"
+    : "black",
   };
 
   return (

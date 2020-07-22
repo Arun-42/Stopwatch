@@ -21,7 +21,7 @@ function start(isStarted, setIsStarted, timeElapsed, setTime) {
 }
 
 function createLapsComponent(laps) {
-  let lapsJSX = laps.map(lap => (
+  let lapsJSX = laps.map((lap) => (
     <h3 key={laps.indexOf(lap)}>{msToTime(lap)}</h3>
   ));
   return lapsJSX;
@@ -46,15 +46,17 @@ function Top() {
   const [isStarted, setIsStarted] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [laps, setLaps] = useState([]);
-  const doStart = () => start(isStarted, setIsStarted, timeElapsed, setTimeElapsed);
+  const doStart = () =>
+    start(isStarted, setIsStarted, timeElapsed, setTimeElapsed);
   const doLapCopy = () => doLap(isStarted, setLaps, timeElapsed, laps);
   const doResetAll = () => resetAll(setTimeElapsed, setLaps);
-  
+
+
 
   function toggleStart() {
     if (isStarted) {
       setIsStarted(false);
-      clearInterval(interval)
+      clearInterval(interval);
     } else {
       doStart();
     }
@@ -70,7 +72,7 @@ function Top() {
   const lapsComponent = createLapsComponent(laps);
   return (
     <div className="main">
-      <div className="head">
+      <div className= {lapsComponent.length ? "head laps-top-border" : "head"}>
         <Heading />
         <Buttons
           isStarted={isStarted}
