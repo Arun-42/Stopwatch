@@ -17,8 +17,7 @@ body{
 }
 .clock{
   width: 14em;
-  border-radius: 10px;
-  margin-top: 1em;
+  margin-top: 3em;
   display: flex;
   height: 3em;
   justify-content: center;
@@ -39,10 +38,15 @@ h3{
   flex-direction: column;
   align-items: center;
 }
-.laps{
-  margin-top: 1em;
-  color: rgb(12, 12, 12);
 
+.laps-top-border{
+  border-top-style: solid;
+  border-top-color: black;
+  border-top-width: 1px;
+}
+
+.laps{
+  color: rgb(12, 12, 12);
   width: 18em;
 
 }
@@ -54,6 +58,25 @@ h3{
   
 }
 
+.lightBorder{
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+}
+
+.darkText{
+  color: black;
+}
+.lightText{
+  color: white;
+}
+.darkBg{
+  background-color: black;
+}
+.lightBg{
+  background-color: white;
+}
+
 .head{
   background-color: rgb(255, 255, 255);
   width: 100%;
@@ -62,7 +85,7 @@ h3{
   align-items: center;;
   padding: 3em 0;
   padding-top:3em;
-  padding-bottom: 1.5em;
+  padding-bottom: 1em;
   position:sticky;
   top:0;
 }
@@ -95,7 +118,7 @@ button{
   outline: none;
   box-shadow: none;
   transition: all 0.2s ease;
-  background-color: rgba(255, 255, 255, 0.849);
+  background-color: rgba(255, 255, 255);
   color: rgb(0, 0, 0);
 }
 
@@ -106,12 +129,12 @@ h3{
 }
 
 p{
-  background-color: rgba(121, 168, 87, 0.096);
+  background-color: rgba(121, 168, 87);
 }
 
 @media (pointer:fine){
 button:hover{
-  background-color: rgba(0, 0, 0, 0.849) ;
+  background-color: rgba(0, 0, 0) ;
   color: white;
 }
 }

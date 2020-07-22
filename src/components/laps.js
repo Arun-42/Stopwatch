@@ -1,7 +1,8 @@
 import React from "react";
 
 function Laps({laps}) {
-  return <div className="laps">{laps.reverse()}</div>;
+  const lapsComponent = laps.length ? <div className="laps laps-top-border">{laps.reverse()}</div> : <div className="laps">{laps.reverse()}</div>; 
+  return lapsComponent;
 }
 
 export { Laps };
